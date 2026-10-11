@@ -1,39 +1,39 @@
-name: Build and release Aseprite
+名称：构建和发布 Aseprite: 
 
-on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'BuildLog.md'
-  workflow_dispatch:
-env:
-  BUILD_TYPE: Release
+在：:
+  推送：:
+    分支：:
+      - 主页main
+    路径：:
+      - 'BuildLog.md''BuildLog.md'
+  工作流_调度:
+环境：:
+  构建类型：发布: Release
 
-jobs:
-  fetch-aseprite-info:
-    name: Fetch deps info
-    runs-on: ubuntu-latest
-    outputs:
-      download-link: ${{ steps.aseprite-link.outputs.download-link }}
-      release-tag: ${{ steps.aseprite-link.outputs.release-tag }}
-    steps:
-      - name: Fetch Aseprite release link
-        id: aseprite-link
-        uses: a1393323447/fetch-release@main
-        with:
-            group: aseprite
-            repo: aseprite
-            match: Aseprite-.*?-Source.zip
+职位：:
+  获取aseprite信息：:
+    名称：获取依赖信息: Fetch deps info
+    运行环境: ubuntu-latest: ubuntu-latest
+    输出：:
+      下载链接: ${{ steps.aseprite-link.outputs.download-link }}: ${{ steps.aseprite-link.outputs.download-link }}
+      release-tag: ${{ steps.aseprite-link.outputs.release-tag }}: ${{ steps.aseprite-link.outputs.release-tag }}
+    步骤：:
+      - 名称：获取 Aseprite 发布链接name: Fetch Aseprite release link
+        id: aseprite-link: aseprite-link
+        使用：a1393323447/fetch-release@main: a1393323447/fetch-release@main
+        使用：:
+            组：asepriteaseprite
+            仓库：aseprite: aseprite
+            匹配：Aseprite-.*?-Source.zip: Aseprite-.*?-Source.zip
 
-  create-release:
-    name: Create Release
-    runs-on: ubuntu-latest
-    needs: fetch-aseprite-info
-    permissions:
-      contents: write
-    outputs:
-      download-link: ${{ needs.fetch-aseprite-info.outputs.download-link }}
+  创建发布：:
+    名称：创建发布: Create Release
+    运行环境: ubuntu-latest: ubuntu-latest
+    需要：获取aseprite信息: fetch-aseprite-info
+    权限：:
+      内容：写: write
+    输出：:
+      下载链接: ${{ needs.fetch-aseprite-info.outputs.download-link }}: ${{ needs.fetch-aseprite-info.outputs.download-link }}
       release-tag: ${{ needs.fetch-aseprite-info.outputs.release-tag }}
     steps:
       - uses: actions/checkout@v7
@@ -52,7 +52,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
         matrix:
-          os: [ windows-latest, ubuntu-latest, macOS-latest ]
+          os: [ windows-latest ]
         fail-fast: false
     steps:
       - name: Install Dependencies
